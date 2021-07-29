@@ -47,51 +47,43 @@ function dropZN(ff) {
         var ctxHeight = 150;
         var imgElem = new Image();
         imgElem.src = url;
-        imgElem.onload = () => {
+        imgElem.onload = (img) => {
+            console.log(img)
             var props = {}
-                        props.imgSize = Math.max(imgElem.naturalWidth, imgElem.naturalHeight)
+            props.imgSize = Math.max(imgElem.naturalWidth, imgElem.naturalHeight)
 
-            props.ctxW = (imgElem.naturalWidth/props.imgSize)*256
-            props.ctxH= (imgElem.naturalHeight/props.imgSize)*256
+            props.ctxW = (imgElem.naturalWidth / props.imgSize) * 256
+            props.ctxH = (imgElem.naturalHeight / props.imgSize) * 256
             props.left = (imgElem.naturalWidth - props.imgSize) / 2;
             props.top = (imgElem.naturalHeight - props.imgSize) / 2;
-            // props.scale = props.imgSize / ctxWidth>ctxHeight?ctxWidth:ctxHeight;
-            // props.scale =  Math.max(ctxWidth / imgElem.naturalWidth, ctxHeight / imgElem.naturalHeight);
-            // props.scale = Math.min(imgElem.naturalWidth / ctxWidth, imgElem.naturalHeight / ctxHeight);
-            // var ratio = Math.min(imgElem.naturalWidth,imgElem.naturalHeight)
+
             var cnv = document.createElement('canvas')
             cnv.width = props.ctxW;
             cnv.style.width = `${props.ctxW}px`
-            cnv.height =  props.ctxH;
+            cnv.height = props.ctxH;
             cnv.style.height = `${props.ctxH}px`
             var ctx = cnv.getContext('2d')
-            // cnv.style.width = maxWidth;
-            // cnv.style.height = maxHeight;
-            // ctx.translate(ctxWidth / 2, ctxHeight / 2);
-            ctx.drawImage(imgElem,
-                0,
-                0,
-                props.ctxW  ,
-                props.ctxH  );
+
+            ctx.drawImage(imgElem, 0, 0, props.ctxW, props.ctxH);
             console.log(elem.name, elem.type, elem.size, imgElem.naturalWidth, imgElem.naturalHeight);
             var div = document.createElement('div')
             div.appendChild(cnv)
             // var titleName = document.createElement('p')
             // titleName.innerText = elem.name;
-            div.appendChild(titleMkr(elem.name,'p'));
-            imgElem.naturalWidth<imgElem.naturalHeight?div.appendChild(titleMkr(`Portrait`,'span')):div.appendChild(titleMkr(`Landscape`,'p'));
+            div.appendChild(titleMkr(elem.name, 'p'));
+            imgElem.naturalWidth < imgElem.naturalHeight ? div.appendChild(titleMkr(`Portrait`, 'span')) : div.appendChild(titleMkr(`Landscape`, 'p'));
 
-           
-            div.appendChild(titleMkr(`Size - ${imgElem.naturalWidth} x ${imgElem.naturalHeight}`,'p'));
-            var resx256 = titleMkr(`x256 - ${(imgElem.naturalWidth/props.imgSize)*256} x ${(imgElem.naturalHeight/props.imgSize)*256}`,'p')
-            resx256.onclick = function(){
-                
+
+            div.appendChild(titleMkr(`Size - ${imgElem.naturalWidth} x ${imgElem.naturalHeight}`, 'p'));
+            var resx256 = titleMkr(`x256 - ${(imgElem.naturalWidth/props.imgSize)*256} x ${(imgElem.naturalHeight/props.imgSize)*256}`, 'p')
+            resx256.onclick = function () {
+console.log('256')
             }
             div.appendChild(resx256);
-            div.appendChild(titleMkr(`x512 - ${(imgElem.naturalWidth/props.imgSize)*512} x ${(imgElem.naturalHeight/props.imgSize)*512}`,'p'));
-            div.appendChild(titleMkr(`x2K - ${(imgElem.naturalWidth/props.imgSize)*2048} x ${(imgElem.naturalHeight/props.imgSize)*2048}`,'p'));
+            div.appendChild(titleMkr(`x512 - ${(imgElem.naturalWidth/props.imgSize)*512} x ${(imgElem.naturalHeight/props.imgSize)*512}`, 'p'));
+            div.appendChild(titleMkr(`x2K - ${(imgElem.naturalWidth/props.imgSize)*2048} x ${(imgElem.naturalHeight/props.imgSize)*2048}`, 'p'));
 
-           
+
             // var titleMetadata = document.createElement('span')
             // titleMetadata.innerText = `Size - ${imgElem.naturalWidth} x ${imgElem.naturalHeight}`
             // // var dwnld360 = resizeImage(ctx)
@@ -112,21 +104,21 @@ function dropZN(ff) {
 
 
 
-            function titleMkr  (text, type){
-                var elem;
-switch (type) {
-    case 'p':
-    elem = document.createElement('p');
+function titleMkr(text, type) {
+    var elem;
+    switch (type) {
+        case 'p':
+            elem = document.createElement('p');
 
-        break;
+            break;
         case 'span':
             elem = document.createElement('span');
-            
-                break;
 
-    default:
-        break;
-}
-elem.innerText = text
-return elem;
+            break;
+
+        default:
+            break;
+    }
+    elem.innerText = text
+    return elem;
 }
