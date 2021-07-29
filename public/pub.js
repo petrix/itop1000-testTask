@@ -49,28 +49,31 @@ function dropZN(ff) {
         imgElem.src = url;
         imgElem.onload = () => {
             var props = {}
-            props.imgSize = Math.max(imgElem.naturalWidth, imgElem.naturalHeight)
+                        props.imgSize = Math.max(imgElem.naturalWidth, imgElem.naturalHeight)
+
+            props.ctxW = (imgElem.naturalWidth/props.imgSize)*256
+            props.ctxH= (imgElem.naturalHeight/props.imgSize)*256
             props.left = (imgElem.naturalWidth - props.imgSize) / 2;
             props.top = (imgElem.naturalHeight - props.imgSize) / 2;
             // props.scale = props.imgSize / ctxWidth>ctxHeight?ctxWidth:ctxHeight;
-            props.scale = props.imgSize / ctxWidth
+            // props.scale =  Math.max(ctxWidth / imgElem.naturalWidth, ctxHeight / imgElem.naturalHeight);
             // props.scale = Math.min(imgElem.naturalWidth / ctxWidth, imgElem.naturalHeight / ctxHeight);
             // var ratio = Math.min(imgElem.naturalWidth,imgElem.naturalHeight)
             var cnv = document.createElement('canvas')
-            cnv.width = ctxWidth;
-            cnv.style.width = `${ctxWidth}px`
-            cnv.height =  ctxHeight;
-            cnv.style.height = `${ctxHeight}px`
+            cnv.width = props.ctxW;
+            cnv.style.width = `${props.ctxW}px`
+            cnv.height =  props.ctxH;
+            cnv.style.height = `${props.ctxH}px`
             var ctx = cnv.getContext('2d')
             // cnv.style.width = maxWidth;
             // cnv.style.height = maxHeight;
-            ctx.translate(ctxWidth / 2, ctxHeight / 2);
+            // ctx.translate(ctxWidth / 2, ctxHeight / 2);
             ctx.drawImage(imgElem,
-                -(ctxWidth / 2 + props.left / props.scale),
-                -(ctxHeight / 2 + props.top / props.scale),
-                ctxWidth + (props.left / props.scale) * 2,
-                ctxHeight + (props.top / props.scale) * 2);
-            console.log(elem.name, elem.type, elem.size, imgElem.naturalWidth, imgElem.naturalHeight, props.scale);
+                0,
+                0,
+                props.ctxW  ,
+                props.ctxH  );
+            console.log(elem.name, elem.type, elem.size, imgElem.naturalWidth, imgElem.naturalHeight);
             var div = document.createElement('div')
             div.appendChild(cnv)
             // var titleName = document.createElement('p')
