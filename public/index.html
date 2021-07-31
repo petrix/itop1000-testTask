@@ -7,19 +7,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        *{
+        * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
+
         body {
             margin: 0;
             width: 100%;
             height: 100vh;
-                 display: flex;
-                 flex-direction: column;
+            display: flex;
+            flex-direction: column;
             justify-content: center;
-            align-items: center; 
+            align-items: center;
         }
 
         /* .fileselect{
@@ -30,7 +31,7 @@
             align-items: center; 
             border: 1px solid gold;
         } */
-        .filelist{
+        .filelist {
             display: flex;
             flex-direction: row;
             flex-wrap: wrap;
@@ -38,29 +39,72 @@
             height: 100%;
             width: 100%;
             overflow-y: auto;
-            
+
         }
-        .filelist>div{
-            padding: 10px; 
-         border: 2px dashed grey;   
+
+        .filelist>p {
+            position: absolute;
+            z-index: -100;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
         }
-        .filelist>div> canvas{
+
+        section {
+            /* position: absolute; */
+            bottom: 0;
+            width: 100%;
+            background-color: gray;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 50px;
+            opacity: 0;
+            transition: all 1s;
+        }
+
+        section>button {
+            background:none;
+            border: none;
+        }
+
+        .filelist>div {
+            padding: 10px;
+            border: 2px dashed grey;
+            border-radius: 10px;
+        }
+
+        .filelist>div>a {
+            display: block;
+        }
+
+        .filelist>div>canvas {
             /* padding: 10px; */
-             width: 150px; 
+            width: 150px;
             height: 150px;
             border-radius: 10px;
             overflow: hidden;
-         
+
         }
     </style>
+    <script src="/socket/socket.io.min.js"></script>
     <script src="pub.js" defer></script>
 </head>
 
 <body>
-    <div class="fileselect">
+    <!-- <div class="fileselect">
         <p>DROP FILES HERE</p>
+    </div> -->
+    <div class="filelist">
+        <p>DROP FILES HERE</p>
+
+
     </div>
-    <div class="filelist"></div>
+            <section class="footer">
+            <button id='upload'>Upload</button>
+        </section>
 </body>
 
 </html>
